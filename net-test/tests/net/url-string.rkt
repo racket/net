@@ -137,7 +137,11 @@
   ;; and in relative paths as long as it's not in the first element
   (test-s->u #(#f #f #f #f #f (#("x") #("y:@z")) () #f)
              "x/y:@z")
-
+  
+  ;; test ipv6 support
+  (test-s->u #("https" #f "[1234:93bf::8]" #f #t (#("")) () #f)
+        "https://[1234:93bf::8]/")
+  
   ;; test bad schemes
   (test
    (string->url "://www.foo.com/")    =error> url-exception?
